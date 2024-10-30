@@ -33,3 +33,11 @@ class BrandDetailView(generic.DetailView):
 
     model = Brand
     template_name = 'brand_datail.html'
+
+
+class BrandUpdateView(generic.UpdateView):
+
+    model = Brand
+    template_name = 'brand_update.html'
+    form_class = BrandForm
+    success_url = reverse_lazy('brand:list')
