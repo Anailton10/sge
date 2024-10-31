@@ -10,6 +10,7 @@ class BrandListaView(generic.ListView):
     model = Brand
     template_name = 'brand_list.html'
     context_object_name = 'brands'
+    paginate_by = 10
 
     def get_queryset(self):
         queryste = super().get_queryset()
