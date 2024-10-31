@@ -31,8 +31,8 @@
                 <th>Descrição</th>
                 <th>Ações</th>
             </tr>
-        </thead>
-        <tbody>
+        </thead> 
+        <tbody> 
             {% for brand in brands %}
                 <tr>
                     <td>{{brand.id}}</td>
@@ -47,7 +47,7 @@
                             <i class="bi bi-pencil"></i>
                         </a>
 
-                        <a href="#" class="btn btn-danger btn-sm">
+                        <a href="{% url "brand:delete" brand.pk %}" class="btn btn-danger btn-sm btn-delete">
                             <i class="bi bi-trash"></i>
                         </a>
                      </td>

@@ -41,3 +41,10 @@ class BrandUpdateView(generic.UpdateView):
     template_name = 'brand_update.html'
     form_class = BrandForm
     success_url = reverse_lazy('brand:list')
+
+
+class BrandDeleteView(generic.DeleteView):
+
+    model = Brand
+    template_name = 'brand_delete.html'
+    success_url = reverse_lazy('brand:list')
