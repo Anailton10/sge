@@ -33,7 +33,7 @@ class BrandCreateView(generic.CreateView):
 class BrandDetailView(generic.DetailView):
 
     model = Brand
-    template_name = 'brand_datail.html'
+    template_name = 'brand_detail.html'
 
 
 class BrandUpdateView(generic.UpdateView):

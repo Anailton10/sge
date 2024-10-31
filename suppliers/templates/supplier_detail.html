@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h3 class="display-6">Detalhes da Marca</h3>
+        <h3 class="display-6">Detalhes o Fornecedor</h3>
 
         <div class="card">
             <div class="card-body">
@@ -11,7 +11,7 @@
                 <p class="card-text">{{object.description}}</p>
             </div>
         </div>
-        <a href="{% url "category:list" %}"class="btn btn-secondary">Voltar para lista de marcas</a>
+        <a href="{% url "supplier:list" %}"class="btn btn-secondary">Voltar para lista de fornecedores</a>
     </div>
 
 {% endblock content %}

@@ -33,7 +33,7 @@ class CategoryCreateView(generic.CreateView):
 class CategoryDetailView(generic.DetailView):
 
     model = Category
-    template_name = 'category_datail.html'
+    template_name = 'category_detail.html'
 
 
 class CategoryUpdateView(generic.UpdateView):

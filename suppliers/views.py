@@ -33,7 +33,7 @@ class SupplierCreateView(generic.CreateView):
 class SupplierDetailView(generic.DetailView):
 
     model = Supplier
-    template_name = 'supplier_datail.html'
+    template_name = 'supplier_detail.html'
 
 
 class SupplierUpdateView(generic.UpdateView):
