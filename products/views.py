@@ -5,6 +5,7 @@ from brands.models import Brand
 from categories.models import Category
 from products.forms import ProductForm
 from products.models import Product
+from app import metrics
 
 
 class ProductListaView(generic.ListView):
@@ -38,6 +39,7 @@ class ProductListaView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['product_metrics'] = metrics.get_product_metrics()
         context['categories'] = Category.objects.all()
         context['brands'] = Brand.objects.all()
 
