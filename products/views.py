@@ -1,19 +1,22 @@
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.urls import reverse_lazy
 from django.views import generic
 
+from app import metrics
 from brands.models import Brand
 from categories.models import Category
 from products.forms import ProductForm
 from products.models import Product
-from app import metrics
 
 
-class ProductListaView(generic.ListView):
+class ProductListaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
 
     model = Product
     template_name = 'product_list.html'
     context_object_name = 'products'
     paginate_by = 10
+    permission_required = 'products.view_product'
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -46,30 +49,34 @@ class ProductListaView(generic.ListView):
         return context
 
 
-class ProductCreateView(generic.CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
 
     model = Product
     template_name = 'product_create.html'
     form_class = ProductForm
     success_url = reverse_lazy('product:list')
+    permission_required = 'products.add_product'
 
 
-class ProductDetailView(generic.DetailView):
+class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
 
     model = Product
     template_name = 'product_detail.html'
+    permission_required = 'products.view_product'
 
 
-class ProductUpdateView(generic.UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
 
     model = Product
     template_name = 'product_update.html'
     form_class = ProductForm
     success_url = reverse_lazy('product:list')
+    permission_required = 'products.change_product'
 
 
-class ProductDeleteView(generic.DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
 
     model = Product
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product:list')
+    permission_required = 'products.delete_product'

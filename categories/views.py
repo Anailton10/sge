@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -5,12 +7,13 @@ from categories.forms import CategoryForm
 from categories.models import Category
 
 
-class CategoryListaView(generic.ListView):
+class CategoryListaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
 
     model = Category
     template_name = 'category_list.html'
     context_object_name = 'categories'
     paginate_by = 10
+    permission_required = 'categories.view_category'
 
     def get_queryset(self):
         queryste = super().get_queryset()
@@ -22,30 +25,34 @@ class CategoryListaView(generic.ListView):
         return queryste
 
 
-class CategoryCreateView(generic.CreateView):
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
 
     model = Category
     template_name = 'category_create.html'
     form_class = CategoryForm
     success_url = reverse_lazy('category:list')
+    permission_required = 'categories.add_category'
 
 
-class CategoryDetailView(generic.DetailView):
+class CategoryDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
 
     model = Category
     template_name = 'category_detail.html'
+    permission_required = 'categories.view_category'
 
 
-class CategoryUpdateView(generic.UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
 
     model = Category
     template_name = 'category_update.html'
     form_class = CategoryForm
     success_url = reverse_lazy('category:list')
+    permission_required = 'categories.change_category'
 
 
-class CategoryDeleteView(generic.DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
 
     model = Category
     template_name = 'category_delete.html'
     success_url = reverse_lazy('category:list')
+    permission_required = 'categories.delete_category'

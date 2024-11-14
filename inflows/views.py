@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import (LoginRequiredMixin,
+                                        PermissionRequiredMixin)
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -5,12 +7,13 @@ from inflows.forms import InflowForm
 from inflows.models import Inflow
 
 
-class InflowListaView(generic.ListView):
+class InflowListaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
 
     model = Inflow
     template_name = 'inflow_list.html'
     context_object_name = 'inflows'
     paginate_by = 10
+    permission_required = 'inflows.view_inflow'
 
     def get_queryset(self):
         queryste = super().get_queryset()
@@ -22,15 +25,17 @@ class InflowListaView(generic.ListView):
         return queryste
 
 
-class InflowCreateView(generic.CreateView):
+class InflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
 
     model = Inflow
     template_name = 'inflow_create.html'
     form_class = InflowForm
     success_url = reverse_lazy('inflow:list')
+    permission_required = 'inflows.add_inflow'
 
 
-class InflowDetailView(generic.DetailView):
+class InflowDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
 
     model = Inflow
     template_name = 'inflow_detail.html'
+    permission_required = 'inflows.view_inflow'
