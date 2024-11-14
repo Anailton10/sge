@@ -15,11 +15,13 @@
             </div>
         </form>
     </div>
-    <div class="col-md-6">
-        <a href="{% url 'supplier:create' %}" class="btn btn-success float-end">
-            <i class="bi bi-plus"></i> Novo Fornecedor
-        </a>
-    </div>
+    {% if perms.suppliers.view_supplier %}
+        <div class="col-md-6">
+            <a href="{% url 'supplier:create' %}" class="btn btn-success float-end">
+                <i class="bi bi-plus"></i> Novo Fornecedor
+            </a>
+        </div>
+    {% endif %}
 </div>
 
 <div class="table-responsive">
@@ -39,17 +41,22 @@
                     <td>{{supplier.name}}</td>
                     <td>{{supplier.description}}</td>
                     <td>
-                        <a href="{% url "supplier:detail" supplier.pk %}" class="btn btn-info btn-sm">
-                            <i class="bi bi-eye"></i>
-                        </a>
+                        {% if perms.suppliers.view_supplier %}
+                            <a href="{% url "supplier:detail" supplier.pk %}" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        {% endif %}
+                        {% if perms.suppliers.change_supplier %}
+                            <a href="{% url "supplier:update" supplier.pk %}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        {% endif %}
 
-                        <a href="{% url "supplier:update" supplier.pk %}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-
-                        <a href="{% url "supplier:delete" supplier.pk %}" class="btn btn-danger btn-sm btn-delete">
-                            <i class="bi bi-trash"></i>
-                        </a>
+                        {% if perms.suppliers.delete_supplier %}
+                            <a href="{% url "supplier:delete" supplier.pk %}" class="btn btn-danger btn-sm btn-delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        {% endif %}
                      </td>
                 </tr>
             {% endfor %}
