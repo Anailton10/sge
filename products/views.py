@@ -2,12 +2,14 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.urls import reverse_lazy
 from django.views import generic
+from rest_framework import generics
 
 from app import metrics
 from brands.models import Brand
 from categories.models import Category
 from products.forms import ProductForm
 from products.models import Product
+from products.serializers import ProductSerializer
 
 
 class ProductListaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
@@ -80,3 +82,13 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.Del
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product:list')
     permission_required = 'products.delete_product'
+
+
+class ProductCreateListAPIView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
