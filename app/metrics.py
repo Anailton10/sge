@@ -10,8 +10,7 @@ from products.models import Product
 
 def get_product_metrics():
     products = Product.objects.all()
-    total_cost_price = sum(product.cost_price *
-                           product.quantity for product in products)
+    total_cost_price = sum(product.cost_price * product.quantity for product in products)
     total_selling_price = sum(
         product.selling_price * product.quantity for product in products)
     total_quanity = sum(product.quantity for product in products)
@@ -35,10 +34,8 @@ def get_sales_metrics():
     sales = Outflow.objects.all()
     total_sales = sales.count()
     total_products_sold = sum(sale.quantity for sale in sales)
-    total_sales_value = sum(sale.product.selling_price *
-                            sale.quantity for sale in sales)
-    total_sales_cost = sum(sale.product.cost_price *
-                           sale.quantity for sale in sales)
+    total_sales_value = sum(sale.product.selling_price * sale.quantity for sale in sales)
+    total_sales_cost = sum(sale.product.cost_price * sale.quantity for sale in sales)
     total_sales_profit = total_sales_value - total_sales_cost
 
     return dict(
